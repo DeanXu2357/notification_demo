@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>this is the notification demo test page</h1>
+    <button id="push" onclick="clickFunction()">press me</button>
+
+</body>
+<script>
+    function functionOnLoad() {
+        console.log('test message');
+
+        // 判斷用戶是否開放此網頁推播的權限
+        if (Notification.permission === 'granted') {
+            console.log('用户允许通知');
+        } else if (Notification.permission === 'denied') {
+            console.log('用户拒绝通知');
+        } else {
+            console.log('用户還未選擇，去向用户申請權限吧');
+        }
+
+        // 彈出視窗詢問用戶是否開放推播視窗彈出權限
+        Notification.requestPermission().then(function (permission) {
+            if (permission === 'granted') {
+                console.log('用户允许通知');
+            } else
+            if (permission === 'denied') {
+                console.log('用户拒绝通知');
+            }
+        });
+    }
+
+    function clickFunction() {
+        console.log('button click');
+        // 顯示推播視窗
+        var n = new Notification('你忙吧 我吃檸檬', {
+            body: 'Single Dog , Single Dod , Single all the ways',
+            data: {
+                url: 'https://facebook.com'
+            },
+            tag: '你忙吧 我吃檸檬 nmbwcnm',
+            icon: 'https://www.google.com.tw/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiMrs65mfjXAhVDG5QKHakhAB4QjRwIBw&url=http%3A%2F%2Fm.fanjian.net%2Fjbk%2Fnmbwcnm.html&psig=AOvVaw0eRAu4dgRqtDRAuYKEQUbV&ust=1512746351079076',
+            requireInteraction: true
+        });
+
+        // 推播視窗被點擊時的事件
+        n.onclick = function () {
+            window.open(n.data.url);
+            n.close;
+        }
+    }
+
+    window.onload = functionOnLoad;
+</script>
+
+</html>
